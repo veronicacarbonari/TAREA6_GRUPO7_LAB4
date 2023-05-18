@@ -13,7 +13,8 @@ public class Conexion
 	{
 		try
 		{
-			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/agenda","root","root");
+			Class.forName("com.mysql.jdbc.Driver"); // quitar si no es necesario
+			this.connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/bdPersonas","root","root");
 			this.connection.setAutoCommit(false);
 		}
 		catch(Exception e)

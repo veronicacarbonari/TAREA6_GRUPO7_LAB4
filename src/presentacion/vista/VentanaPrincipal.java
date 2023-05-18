@@ -27,19 +27,6 @@ public class VentanaPrincipal  {
 	private JMenuItem menuListar;
 	
 	
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPrincipal frame = new VentanaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-	
 	public VentanaPrincipal() 
 	{
 		super();
@@ -97,8 +84,8 @@ public class VentanaPrincipal  {
 			@Override
 		    public void windowClosing(WindowEvent e) {
 		        int confirm = JOptionPane.showOptionDialog(
-		             null, "Estas seguro que quieres salir de la Agenda?", 
-		             "Confirmaci�n", JOptionPane.YES_NO_OPTION,
+		             null, "Estas seguro que quieres salir?", 
+		             "Confirmacion", JOptionPane.YES_NO_OPTION,
 		             JOptionPane.QUESTION_MESSAGE, null, null, null);
 		        if (confirm == 0) {
 		        	Conexion.getConexion().cerrarConexion();
