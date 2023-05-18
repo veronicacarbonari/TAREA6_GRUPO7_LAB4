@@ -16,7 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-public class VentanaPrincipal  {
+public class VentanaPrincipal extends JFrame {
 
 	private JFrame frame;
 	private JMenuBar menuBar;
@@ -29,34 +29,11 @@ public class VentanaPrincipal  {
 	
 	public VentanaPrincipal() 
 	{
-		super();
-		initialize();
-	}
-	 
-	
-	public void initialize() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 783, 494);
 		
-		frame = new JFrame();
-		frame.setTitle("Programa");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 550, 400);
-		frame.setLocationRelativeTo(null);	//configuro posición en pantalla
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(100, 100, 550, 400);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(null);
-		frame.getContentPane().add(panel);
-		
-		
-		JPanel panel1= new JPanel();
-		panel1.setBounds(100, 100, 550, 400);
-		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel1.setLayout(null);
-		frame.getContentPane().add(panel1);
-		
-		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
 		
 		mnPersona = new JMenu("Persona");
 		menuBar.add(mnPersona);
@@ -73,10 +50,37 @@ public class VentanaPrincipal  {
 		menuListar = new JMenuItem("Listar");
 		mnPersona.add(menuListar);
 		
+	}
+	 
+	
+	public void initialize() {
+		
+		
+		/*frame = new JFrame();
+		frame.setTitle("Programa");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 550, 400);
+		frame.setLocationRelativeTo(null);	//configuro posición en pantalla
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(100, 100, 550, 400);
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(null);
+		frame.getContentPane().add(panel);
+		
+		
+		JPanel panel1= new JPanel();
+		panel1.setBounds(100, 100, 550, 400);
+		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel1.setLayout(null);
+		frame.getContentPane().add(panel1);*/
+		
+
+		
 		//setContentPane(contentPane);
 	}
 	
-	public void show()
+	/*public void show()
 	{
 		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.frame.addWindowListener(new WindowAdapter() 
@@ -94,7 +98,7 @@ public class VentanaPrincipal  {
 		    }
 		});
 		this.frame.setVisible(true);
-	}
+	}*/
 	
 	
 	public void mostrarMensaje(String mensaje)
