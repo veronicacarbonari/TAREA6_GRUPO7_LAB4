@@ -2,17 +2,23 @@ package presentacion.vista;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import daolmpl.Conexion;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
-public class VentanaPrincipal extends JFrame {
+public class VentanaPrincipal  {
 
-	private JPanel contentPane;
+	private JFrame frame;
 	private JMenuBar menuBar;
 	private JMenu mnPersona;
 	private JMenuItem menuAgregar;
@@ -21,7 +27,7 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem menuListar;
 	
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -32,17 +38,38 @@ public class VentanaPrincipal extends JFrame {
 				}
 			}
 		});
+	}*/
+	
+	public VentanaPrincipal() 
+	{
+		super();
+		initialize();
 	}
 	 
 	
-	public VentanaPrincipal() {
-		setTitle("Programa");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 400);
-		setLocationRelativeTo(null);	//configuro posición en pantalla
+	public void initialize() {
+		
+		frame = new JFrame();
+		frame.setTitle("Programa");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 550, 400);
+		frame.setLocationRelativeTo(null);	//configuro posiciÃ³n en pantalla
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(100, 100, 550, 400);
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(null);
+		frame.getContentPane().add(panel);
+		
+		
+		JPanel panel1= new JPanel();
+		panel1.setBounds(100, 100, 550, 400);
+		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel1.setLayout(null);
+		frame.getContentPane().add(panel1);
 		
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		frame.setJMenuBar(menuBar);
 		
 		mnPersona = new JMenu("Persona");
 		menuBar.add(mnPersona);
@@ -59,12 +86,39 @@ public class VentanaPrincipal extends JFrame {
 		menuListar = new JMenuItem("Listar");
 		mnPersona.add(menuListar);
 		
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		//setContentPane(contentPane);
 	}
-
+	
+	public void show()
+	{
+		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.frame.addWindowListener(new WindowAdapter() 
+		{
+			@Override
+		    public void windowClosing(WindowEvent e) {
+		        int confirm = JOptionPane.showOptionDialog(
+		             null, "Estas seguro que quieres salir de la Agenda?", 
+		             "Confirmaciï¿½n", JOptionPane.YES_NO_OPTION,
+		             JOptionPane.QUESTION_MESSAGE, null, null, null);
+		        if (confirm == 0) {
+		        	Conexion.getConexion().cerrarConexion();
+		           System.exit(0);
+		        }
+		    }
+		});
+		this.frame.setVisible(true);
+	}
+	
+	
+	public void mostrarMensaje(String mensaje)
+	{
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
+	
+	
+	
+	
+//getters y setters
 	public JMenuItem getMenuAgregar() {
 		return menuAgregar;
 	}

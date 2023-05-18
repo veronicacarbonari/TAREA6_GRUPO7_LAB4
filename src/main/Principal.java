@@ -1,5 +1,6 @@
 package main;
 
+import presentacion.controlador.Controlador;
 import presentacion.vista.VentanaPrincipal;
 
 public class Principal {
@@ -8,8 +9,8 @@ public class Principal {
 		
 		VentanaPrincipal vista = new VentanaPrincipal();
 		
-		//FALTA CREAR LAS CLASES DE NEGOCIO DE Y DE CONTROLADOR PARA PODER 
-		//INIICIALIZAR LA VENTANA PRINCIPAL
+		Controlador controlador = new Controlador(vista);
+		controlador.inicializar();
 	}
 
 }
