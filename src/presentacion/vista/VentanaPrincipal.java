@@ -18,7 +18,8 @@ import javax.swing.JOptionPane;
 
 public class VentanaPrincipal extends JFrame {
 
-	private JFrame frame;
+	private static final long serialVersionUID = 1L;
+	
 	private JMenuBar menuBar;
 	private JMenu mnPersona;
 	private JMenuItem menuAgregar;
@@ -30,7 +31,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 783, 494);
+		setBounds(450, 250, 500, 300);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -51,61 +52,6 @@ public class VentanaPrincipal extends JFrame {
 		mnPersona.add(menuListar);
 		
 	}
-	 
-	
-	public void initialize() {
-		
-		
-		/*frame = new JFrame();
-		frame.setTitle("Programa");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 550, 400);
-		frame.setLocationRelativeTo(null);	//configuro posición en pantalla
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(100, 100, 550, 400);
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel.setLayout(null);
-		frame.getContentPane().add(panel);
-		
-		
-		JPanel panel1= new JPanel();
-		panel1.setBounds(100, 100, 550, 400);
-		panel1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		panel1.setLayout(null);
-		frame.getContentPane().add(panel1);*/
-		
-
-		
-		//setContentPane(contentPane);
-	}
-	
-	/*public void show()
-	{
-		this.frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.frame.addWindowListener(new WindowAdapter() 
-		{
-			@Override
-		    public void windowClosing(WindowEvent e) {
-		        int confirm = JOptionPane.showOptionDialog(
-		             null, "Estas seguro que quieres salir?", 
-		             "Confirmacion", JOptionPane.YES_NO_OPTION,
-		             JOptionPane.QUESTION_MESSAGE, null, null, null);
-		        if (confirm == 0) {
-		        	Conexion.getConexion().cerrarConexion();
-		           System.exit(0);
-		        }
-		    }
-		});
-		this.frame.setVisible(true);
-	}*/
-	
-	
-	public void mostrarMensaje(String mensaje)
-	{
-		JOptionPane.showMessageDialog(null, mensaje);
-	}
-	
 	
 	
 	
