@@ -2,6 +2,7 @@ package presentacion.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import entidad.Persona;
 import negocio.PersonaNegocio;
@@ -19,6 +20,7 @@ public class Controlador implements ActionListener{
 	private PanelModificar pnlModificar;
 	private PanelListar pnlListar;
 	private PersonaNegocio pNegocio;
+	private ArrayList<Persona> personasEnTabla;
 	
 	public Controlador(VentanaPrincipal vista, PersonaNegocio pNegocio) {
 		this.ventanaPrincipal = vista;
@@ -42,8 +44,6 @@ public class Controlador implements ActionListener{
 		 this.pnlIngresoPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
 	
 	}
-	
-	
 	
 	
 	//EventoClickMenu abrir PanelAgregarPersonas
@@ -77,6 +77,7 @@ public class Controlador implements ActionListener{
 		ventanaPrincipal.getContentPane().add(pnlListar);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
+		this.refrescarTabla();
 	}
 	
 	
@@ -92,14 +93,15 @@ public class Controlador implements ActionListener{
 		
 	}
 	
-			//EventoClickBoton agregar persona en PanelAgregarPersonas
-			private void EventoClickBoton_AgregarPesona_PanelAgregarPersonas(ActionEvent a) {
+	//EventoClickBoton agregar persona en PanelAgregarPersonas
+			
+	private void EventoClickBoton_AgregarPesona_PanelAgregarPersonas(ActionEvent a) {
 				
-				String dni = this.pnlIngresoPersona.getTxtDni().getText();
-				String nombre = this.pnlIngresoPersona.getTxtNombre().getText();
-				String apellido = this.pnlIngresoPersona.getTxtApellido().getText();
-				Persona nuevaPersona = new Persona(dni, nombre, apellido);
-				String mensaje;
+	String dni = this.pnlIngresoPersona.getTxtDni().getText();
+	String nombre = this.pnlIngresoPersona.getTxtNombre().getText();
+	String apellido = this.pnlIngresoPersona.getTxtApellido().getText();
+	Persona nuevaPersona = new Persona(dni, nombre, apellido);
+	String mensaje;
 						
 				boolean noExiste=pNegocio.dniNoExiste(nuevaPersona);
 				boolean estado=false;
@@ -128,4 +130,10 @@ public class Controlador implements ActionListener{
 				this.pnlIngresoPersona.mostrarMensaje(mensaje);
 			
 			}
+			
+	private void refrescarTabla()
+	{
+		this.personasEnTabla = (ArrayList<Persona>) pNegocio.readAll();
+		this.pnlListar.llenarTabla(this.personasEnTabla);
+	}
 }

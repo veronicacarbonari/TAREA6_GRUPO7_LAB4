@@ -144,31 +144,19 @@ public class PersonaDaoImpl implements PersonaDao  {
 			statement = conexion.prepareStatement(dniExiste);
 			statement.setString(1,persona.getDni());
 			resultSet = statement.executeQuery();
-			resultSet.next();
-			
-			encontrada.setDni(resultSet.getString(1));
-			filas=encontrada.getDni().trim().length();
-			
-			//filas=resultSet.getRow();
-			//encontrada= getPersona(resultSet);
+			if(resultSet.next()) {
+
+				encontrada.setDni(resultSet.getString(1));
+				filas=encontrada.getDni().trim().length();
+			}
 			
 		} 
 		catch (SQLException e) 
 		{
 			e.printStackTrace();
 		}
-		finally {
-			
-			try {
-					conexion.close();
-				} 
-			catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 		return filas;
 	}
-
 	
 }

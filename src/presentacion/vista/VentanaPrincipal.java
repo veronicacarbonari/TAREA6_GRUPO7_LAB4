@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import daolmpl.Conexion;
+import entidad.Persona;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -53,8 +54,6 @@ public class VentanaPrincipal extends JFrame {
 		mnPersona.add(menuListar);
 		
 	}
-	
-	
 	
 //getters y setters
 	public JMenuItem getMenuAgregar() {
