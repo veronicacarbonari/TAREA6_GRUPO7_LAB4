@@ -54,12 +54,12 @@ public class PanelAgregarPersona extends JPanel {
 				
 				txtApellido = new JTextField();
 				txtApellido.setColumns(10);
-				txtApellido.setBounds(204, 87, 164, 20);
+				txtApellido.setBounds(204, 50, 164, 20);
 				add(txtApellido);
 				
 				txtDni = new JTextField();
 				txtDni.setColumns(10);
-				txtDni.setBounds(204, 50, 164, 20);
+				txtDni.setBounds(204, 87, 164, 20);
 				add(txtDni);
 				
 			}
