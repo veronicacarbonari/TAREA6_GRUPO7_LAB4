@@ -99,10 +99,16 @@ public class Controlador implements ActionListener{
 				String nombre = this.pnlIngresoPersona.getTxtNombre().getText();
 				String apellido = this.pnlIngresoPersona.getTxtApellido().getText();
 				Persona nuevaPersona = new Persona(dni, nombre, apellido);
-				
-				boolean estado = pNegocio.insert(nuevaPersona);
 				String mensaje;
-				if(estado==true)
+						
+				boolean noExiste=pNegocio.dniNoExiste(nuevaPersona);
+				boolean estado=false;
+				
+				if(noExiste) {
+					
+					estado = pNegocio.insert(nuevaPersona);
+				}
+				if(estado==true && noExiste)
 				{
 					mensaje="Persona agregada con exito";
 					this.pnlIngresoPersona.getTxtDni().setText("");
@@ -110,7 +116,14 @@ public class Controlador implements ActionListener{
 					this.pnlIngresoPersona.getTxtApellido().setText("");
 				}
 				else
-					mensaje="Es necesario completar todos los campos";
+					if(!noExiste) {
+						
+						mensaje="Ese dni ya existe en la base de datos";
+					}
+					else {
+						
+						mensaje="Es necesario completar todos los campos";
+					}
 				
 				this.pnlIngresoPersona.mostrarMensaje(mensaje);
 			

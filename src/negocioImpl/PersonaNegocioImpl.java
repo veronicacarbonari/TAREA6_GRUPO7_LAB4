@@ -1,5 +1,10 @@
 package negocioImpl;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.PersonaDao;
@@ -46,5 +51,13 @@ public class PersonaNegocioImpl implements PersonaNegocio{
 	@Override
 	public List<Persona> readAll() {
 		return pdao.readAll();
+	}
+
+	@Override
+	public boolean dniNoExiste(Persona persona) {
+		if(pdao.dniNoExiste(persona)==0) {
+			return true;
+		}
+		return false;
 	}
 }

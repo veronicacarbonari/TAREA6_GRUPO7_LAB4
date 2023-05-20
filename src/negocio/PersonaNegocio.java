@@ -10,4 +10,5 @@ public interface PersonaNegocio {
 	public boolean delete(Persona persona_a_eliminar);
 	public boolean update(Persona persona);
 	public List<Persona> readAll();
+	public boolean dniNoExiste(Persona persona);
 }

@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PanelAgregarPersona extends JPanel {
 
@@ -26,8 +28,7 @@ public class PanelAgregarPersona extends JPanel {
 			{
 			
 				this.setBounds(100, 100, 514, 455);
-				this.setLayout(null);
-				
+				this.setLayout(null);				
 	
 				btnAceptar = new JButton("Aceptar");
 				btnAceptar.setBounds(120, 120, 89, 23);
@@ -48,16 +49,41 @@ public class PanelAgregarPersona extends JPanel {
 				add(label_2);
 				
 				txtNombre = new JTextField();
+				txtNombre.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						char c = e.getKeyChar();
+						
+						if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<'á' || c>'ú') && (c<'Á' || c>'Ú')) e.consume();	
+					}
+				});
 				txtNombre.setColumns(10);
 				txtNombre.setBounds(204, 13, 164, 20);
 				add(txtNombre);
 				
 				txtApellido = new JTextField();
+				txtApellido.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent e) {
+						char c = e.getKeyChar();
+						
+						if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<'á' || c>'ú') && (c<'Á' || c>'Ú')) e.consume();	
+					}
+				});
 				txtApellido.setColumns(10);
 				txtApellido.setBounds(204, 50, 164, 20);
 				add(txtApellido);
 				
 				txtDni = new JTextField();
+				txtDni.addKeyListener(new KeyAdapter() {
+					@Override
+					public void keyTyped(KeyEvent a) {
+						char c = a.getKeyChar();
+						
+						if(c<'0' || c>'9') a.consume();
+						
+					}
+				});
 				txtDni.setColumns(10);
 				txtDni.setBounds(204, 87, 164, 20);
 				add(txtDni);

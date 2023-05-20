@@ -1,6 +1,7 @@
 package daolmpl;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ public class PersonaDaoImpl implements PersonaDao  {
 	private static final String delete  = "DELETE FROM personas WHERE Dni = ?";
 	private static final String readall = "SELECT * FROM personas";
 	private static final String update  = "UPDATE personas SET Nombre = ? , Apellido = ? WHERE Dni = ?";
+	private static final String dniExiste= "SELECT * FROM personas WHERE Dni = ?";
 	
 	@Override
 	public boolean insert(Persona persona) {
@@ -125,8 +127,48 @@ public class PersonaDaoImpl implements PersonaDao  {
 	{
 		String dni = resultSet.getString("Dni");
 		String nombre = resultSet.getString("Nombre");
-		String tel = resultSet.getString("Telefono");
-		return new Persona(dni, nombre, tel);
+		String apellido = resultSet.getString("Apellido");
+		return new Persona(dni, nombre, apellido);
 	}
 
+	@Override
+	public int dniNoExiste(Persona persona) {
+		PreparedStatement statement;
+		ResultSet resultSet; 
+		Persona encontrada = new Persona();
+		int filas=0;
+		
+		Connection conexion = Conexion.getConexion().getSQLConexion();
+		try 
+		{
+			statement = conexion.prepareStatement(dniExiste);
+			statement.setString(1,persona.getDni());
+			resultSet = statement.executeQuery();
+			resultSet.next();
+			
+			encontrada.setDni(resultSet.getString(1));
+			filas=encontrada.getDni().trim().length();
+			
+			//filas=resultSet.getRow();
+			//encontrada= getPersona(resultSet);
+			
+		} 
+		catch (SQLException e) 
+		{
+			e.printStackTrace();
+		}
+		finally {
+			
+			try {
+					conexion.close();
+				} 
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return filas;
+	}
+
+	
 }
