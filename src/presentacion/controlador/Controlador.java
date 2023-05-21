@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.event.ListSelectionEvent;
+
 import entidad.Persona;
 import negocio.PersonaNegocio;
 import presentacion.vista.PanelAgregarPersona;
@@ -46,6 +48,9 @@ public class Controlador implements ActionListener{
 		//Eventos PanelEliminar
 		this.pnlEliminarPersonas.getBtnEliminar().addActionListener(a->EventoClickBoton_EliminarPesona_PanelEliminar(a)); 
 	
+		//Eventos PanelModificar
+		this.pnlModificar.getTablaPersonas().addListSelectionListener(a->EventoClickJList_ModificarPesona_PanelModificarPersonas(a));
+		
 	}
 	
 	
@@ -73,6 +78,8 @@ public class Controlador implements ActionListener{
 		ventanaPrincipal.getContentPane().add(pnlModificar);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
+		
+		this.refrescarListaModificar();
 	}
 	//EventoClickMenu abrir PanelListar
 	public void  EventoClickMenu_AbrirPanel_Listar(ActionEvent a)
@@ -160,4 +167,30 @@ public class Controlador implements ActionListener{
 		this.personasEnTabla = (ArrayList<Persona>) pNegocio.readAll();
 		this.pnlEliminarPersonas.llenarLista(this.personasEnTabla);
 	}
+	
+	//EventoClickJList modificar persona en PanelModificarPersona
+	public void EventoClickJList_ModificarPesona_PanelModificarPersonas(ListSelectionEvent a)
+	{
+		pnlModificar.getTxtDni().setText("");
+		pnlModificar.getTxtNombre().setText("");
+		pnlModificar.getTxtApellido().setText("");
+		
+		Persona persona = new Persona();
+		
+		if(pnlModificar.getTablaPersonas().getSelectedIndex() != -1) {
+			
+			persona = pnlModificar.getTablaPersonas().getSelectedValue();
+			pnlModificar.getTxtDni().setText(persona.getDni());
+			pnlModificar.getTxtNombre().setText(persona.getNombre());
+			pnlModificar.getTxtApellido().setText(persona.getApellido());
+		}
+	}
+	
+		private void refrescarListaModificar()
+		{
+			this.personasEnTabla = (ArrayList<Persona>) pNegocio.readAll();
+			this.pnlModificar.llenarListaAModificar(this.personasEnTabla);
+		}
+		
+	
 }

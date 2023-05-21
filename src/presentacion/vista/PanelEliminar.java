@@ -4,6 +4,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 
 import entidad.Persona;
 
@@ -66,6 +67,7 @@ public class PanelEliminar extends JPanel {
 		
 		modelPersonas = new DefaultListModel<>() ;
 		listPersonas = new JList<Persona>(modelPersonas);
+		listPersonas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPersonas.setBackground(Color.WHITE);
 		listPersonas.setBounds(139, 50, 160, 220);
 		add(listPersonas);
