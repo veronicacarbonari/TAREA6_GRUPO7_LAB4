@@ -7,11 +7,14 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import entidad.Persona;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelModificar extends JPanel{
 	
@@ -41,6 +44,10 @@ public class PanelModificar extends JPanel{
 			add(label);
 
 			btnModificar = new JButton("Modificar");
+			btnModificar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
 			btnModificar.setBounds(381, 299, 89, 23);
 			add(btnModificar);
 			
@@ -62,6 +69,7 @@ public class PanelModificar extends JPanel{
 			add(txtApellido);
 			
 			txtDni = new JTextField();
+			txtDni.setEditable(false);
 			txtDni.setColumns(10);
 			txtDni.setBounds(270, 300, 94, 20);
 			add(txtDni);
@@ -130,5 +138,8 @@ public class PanelModificar extends JPanel{
 		public void setTablaPersonas(JList<Persona> tablaPersonas) {
 			this.tablaPersonas = tablaPersonas;
 		}
-			
+		public void mostrarMensaje(String mensaje)
+		{
+			JOptionPane.showMessageDialog(null, mensaje);
+		}
 }

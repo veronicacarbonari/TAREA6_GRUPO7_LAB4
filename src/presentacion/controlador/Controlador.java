@@ -51,9 +51,16 @@ public class Controlador implements ActionListener{
 		//Eventos PanelModificar
 		this.pnlModificar.getTablaPersonas().addListSelectionListener(a->EventoClickJList_ModificarPesona_PanelModificarPersonas(a));
 		
+		//Evento PanelModificar Button
+		this.pnlModificar.getBtnModificar().addActionListener(a->EventoClickBoton_ModificarPersonaa_PanelModificarPersonas(a));
+		
+		
 	}
 	
 	
+	
+
+
 	//EventoClickMenu abrir PanelAgregarPersonas
 	public void  EventoClickMenu_AbrirPanel_AgregarPersona(ActionEvent a)
 	{		
@@ -175,14 +182,15 @@ public class Controlador implements ActionListener{
 		pnlModificar.getTxtNombre().setText("");
 		pnlModificar.getTxtApellido().setText("");
 		
-		Persona persona = new Persona();
+		Persona personaModificada = new Persona();
 		
 		if(pnlModificar.getTablaPersonas().getSelectedIndex() != -1) {
 			
-			persona = pnlModificar.getTablaPersonas().getSelectedValue();
-			pnlModificar.getTxtDni().setText(persona.getDni());
-			pnlModificar.getTxtNombre().setText(persona.getNombre());
-			pnlModificar.getTxtApellido().setText(persona.getApellido());
+			personaModificada= pnlModificar.getTablaPersonas().getSelectedValue();
+			pnlModificar.getTxtDni().setText(personaModificada.getDni());
+			pnlModificar.getTxtNombre().setText(personaModificada.getNombre());
+			pnlModificar.getTxtApellido().setText(personaModificada.getApellido());
+			
 		}
 	}
 	
@@ -192,5 +200,26 @@ public class Controlador implements ActionListener{
 			this.pnlModificar.llenarListaAModificar(this.personasEnTabla);
 		}
 		
+		//Modificar Click BTN Modificar
+		
+		private void EventoClickBoton_ModificarPersonaa_PanelModificarPersonas(ActionEvent a) {
+  
+	   String Mensaje;
+			
+		if(pnlModificar.getTablaPersonas().getSelectedIndex() != -1) {		  
+           Persona personaAmodificar= new Persona();
+           personaAmodificar.setDni(pnlModificar.getTxtDni().getText());
+		   personaAmodificar.setApellido(pnlModificar.getTxtApellido().getText());
+		   personaAmodificar.setNombre(pnlModificar.getTxtNombre().getText());
+		   pNegocio.update(personaAmodificar);
+		   Mensaje = "¡Elemento modificado correctamente!";
+		} else {
+			Mensaje = "¡Seleccione el elemento a modificar!";
+		}
+		   
+		   this.pnlModificar.mostrarMensaje(Mensaje);
+		   this.refrescarListaModificar();
+			
+		}
 	
 }
