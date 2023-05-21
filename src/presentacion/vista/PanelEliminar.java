@@ -1,16 +1,24 @@
 package presentacion.vista;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import entidad.Persona;
+
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
+import java.util.List;
 
 public class PanelEliminar extends JPanel {
 
 
 	private JButton btnEliminar;
-	private JList list;
+	private JList<Persona> listPersonas;
+	private DefaultListModel<Persona> modelPersonas;
 	
 	 public PanelEliminar() {
 			
@@ -18,29 +26,67 @@ public class PanelEliminar extends JPanel {
 			initialize();
 		}
 	 
-		private void initialize() 
-		{
-		
-			this.setBounds(100, 100, 514, 455);
-			this.setLayout(null);
-			
-			JLabel label = new JLabel("Eliminar usuarios");
-			label.setBounds(168, 34, 113, 14);
-			add(label);
+		public JButton getBtnEliminar() {
+		return btnEliminar;
+	}
 
-			btnEliminar = new JButton("Eliminar");
-			btnEliminar.setBounds(168, 271, 89, 23);
-			add(btnEliminar);
-			
-			list = new JList();
-			list.setBackground(Color.WHITE);
-			list.setBounds(139, 237, 165, -173);
-			add(list);
-			
-		}
+	public void setBtnEliminar(JButton btnEliminar) {
+		this.btnEliminar = btnEliminar;
+	}
+
+	public JList<Persona> getListPersonas() {
+		return listPersonas;
+	}
+
+	public void setList(JList<Persona> list) {
+		this.listPersonas = list;
+	}
+
+	public DefaultListModel<Persona> getModelPersonas() {
+		return modelPersonas;
+	}
+
+	public void setModelPersonas(DefaultListModel<Persona> modelPersonas) {
+		this.modelPersonas = modelPersonas;
+	}
+
+	private void initialize() 
+	{
+	
+		this.setBounds(100, 100, 514, 455);
+		this.setLayout(null);
 		
-		public void show()
+		JLabel label = new JLabel("Eliminar usuarios");
+		label.setBounds(139, 34, 113, 14);
+		add(label);
+
+		btnEliminar = new JButton("Eliminar");
+		btnEliminar.setBounds(139, 271, 160, 23);
+		add(btnEliminar);
+		
+		modelPersonas = new DefaultListModel<>() ;
+		listPersonas = new JList<Persona>(modelPersonas);
+		listPersonas.setBackground(Color.WHITE);
+		listPersonas.setBounds(139, 50, 160, 220);
+		add(listPersonas);
+		
+	}
+	
+	public void show()
+	{
+		this.setVisible(true);
+	}
+	
+	public void llenarLista(List<Persona> personasEnLista) {
+		modelPersonas.clear(); 
+		for (Persona p : personasEnLista)
 		{
-			this.setVisible(true);
+			modelPersonas.addElement(p);;
 		}
+	}
+	
+	public void mostrarMensaje(String mensaje)
+	{
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
 }

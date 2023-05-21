@@ -32,7 +32,7 @@ public class VentanaPrincipal extends JFrame {
 	public VentanaPrincipal() 
 	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(450, 250, 500, 300);
+		setBounds(450, 250, 500, 400);
 		setLocationRelativeTo(null);	//configuro posición en pantalla
 		
 		menuBar = new JMenuBar();

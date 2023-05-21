@@ -41,7 +41,10 @@ public class Controlador implements ActionListener{
 		this.ventanaPrincipal.getMenuListar().addActionListener(a->EventoClickMenu_AbrirPanel_Listar(a));
 	
 		//Eventos PanelAgregarPersona
-		 this.pnlIngresoPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
+		this.pnlIngresoPersona.getBtnAceptar().addActionListener(a->EventoClickBoton_AgregarPesona_PanelAgregarPersonas(a));
+		 
+		//Eventos PanelEliminar
+		this.pnlEliminarPersonas.getBtnEliminar().addActionListener(a->EventoClickBoton_EliminarPesona_PanelEliminar(a)); 
 	
 	}
 	
@@ -61,6 +64,7 @@ public class Controlador implements ActionListener{
 		ventanaPrincipal.getContentPane().add(pnlEliminarPersonas);
 		ventanaPrincipal.getContentPane().repaint();
 		ventanaPrincipal.getContentPane().revalidate();
+		this.refrescarListaPersonasEliminar();
 	}
 	//EventoClickMenu abrir PanelModificar
 	public void  EventoClickMenu_AbrirPanel_ModificarPersona(ActionEvent a)
@@ -96,44 +100,64 @@ public class Controlador implements ActionListener{
 	//EventoClickBoton agregar persona en PanelAgregarPersonas
 			
 	private void EventoClickBoton_AgregarPesona_PanelAgregarPersonas(ActionEvent a) {
-				
-	String dni = this.pnlIngresoPersona.getTxtDni().getText();
-	String nombre = this.pnlIngresoPersona.getTxtNombre().getText();
-	String apellido = this.pnlIngresoPersona.getTxtApellido().getText();
-	Persona nuevaPersona = new Persona(dni, nombre, apellido);
-	String mensaje;
-						
-				boolean noExiste=pNegocio.dniNoExiste(nuevaPersona);
-				boolean estado=false;
-				
-				if(noExiste) {
 					
-					estado = pNegocio.insert(nuevaPersona);
-				}
-				if(estado==true && noExiste)
-				{
-					mensaje="Persona agregada con exito";
-					this.pnlIngresoPersona.getTxtDni().setText("");
-					this.pnlIngresoPersona.getTxtNombre().setText("");
-					this.pnlIngresoPersona.getTxtApellido().setText("");
-				}
-				else
-					if(!noExiste) {
-						
-						mensaje="Ese dni ya existe en la base de datos";
-					}
-					else {
-						
-						mensaje="Es necesario completar todos los campos";
-					}
+		String dni = this.pnlIngresoPersona.getTxtDni().getText();
+		String nombre = this.pnlIngresoPersona.getTxtNombre().getText();
+		String apellido = this.pnlIngresoPersona.getTxtApellido().getText();
+		Persona nuevaPersona = new Persona(dni, nombre, apellido);
+		String mensaje;
+							
+		boolean noExiste=pNegocio.dniNoExiste(nuevaPersona);
+		boolean estado=false;
+		
+		if(noExiste) {
+			
+			estado = pNegocio.insert(nuevaPersona);
+		}
+		if(estado==true && noExiste)
+		{
+			mensaje="Persona agregada con exito";
+			this.pnlIngresoPersona.getTxtDni().setText("");
+			this.pnlIngresoPersona.getTxtNombre().setText("");
+			this.pnlIngresoPersona.getTxtApellido().setText("");
+		}
+		else
+			if(!noExiste) {
 				
-				this.pnlIngresoPersona.mostrarMensaje(mensaje);
-			
+				mensaje="Ese dni ya existe en la base de datos";
 			}
-			
+			else {
+				
+				mensaje="Es necesario completar todos los campos";
+			}
+		
+		this.pnlIngresoPersona.mostrarMensaje(mensaje);
+	}
+	
 	private void refrescarTabla()
 	{
 		this.personasEnTabla = (ArrayList<Persona>) pNegocio.readAll();
 		this.pnlListar.llenarTabla(this.personasEnTabla);
+	}
+	
+	
+	private void EventoClickBoton_EliminarPesona_PanelEliminar(ActionEvent a) {		
+		String mensaje;		
+		if (pnlEliminarPersonas.getListPersonas().getSelectedIndex() != -1) {
+			mensaje = "¡Elemento eliminado correctamente!";
+			Persona personaAEliminar = pnlEliminarPersonas.getListPersonas().getSelectedValue(); 
+			pNegocio.delete(personaAEliminar);
+		} else {
+			mensaje = "¡Seleccione el elemento a eliminar!";
+		}		
+		this.pnlEliminarPersonas.mostrarMensaje(mensaje);
+		this.refrescarListaPersonasEliminar();
+	}
+			
+	
+	private void refrescarListaPersonasEliminar()
+	{
+		this.personasEnTabla = (ArrayList<Persona>) pNegocio.readAll();
+		this.pnlEliminarPersonas.llenarLista(this.personasEnTabla);
 	}
 }
