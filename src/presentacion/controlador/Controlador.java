@@ -208,15 +208,18 @@ public class Controlador implements ActionListener{
 			
 		if(pnlModificar.getTablaPersonas().getSelectedIndex() != -1) {		  
            Persona personaAmodificar= new Persona();
-           personaAmodificar.setDni(pnlModificar.getTxtDni().getText());
-		   personaAmodificar.setApellido(pnlModificar.getTxtApellido().getText());
-		   personaAmodificar.setNombre(pnlModificar.getTxtNombre().getText());
-		   pNegocio.update(personaAmodificar);
-		   Mensaje = "¡Elemento modificado correctamente!";
+           if(pnlModificar.getTxtNombre().getText().isEmpty() || pnlModificar.getTxtApellido().getText().isEmpty() ) {
+        	   Mensaje = "¡Debe indicar valores en los campos Nombre y Apellido!";
+           }else {
+        	   personaAmodificar.setDni(pnlModificar.getTxtDni().getText());
+      		   personaAmodificar.setApellido(pnlModificar.getTxtApellido().getText());
+      		   personaAmodificar.setNombre(pnlModificar.getTxtNombre().getText());
+      		   pNegocio.update(personaAmodificar);
+      		   Mensaje = "¡Elemento modificado correctamente!";
+           }  
 		} else {
 			Mensaje = "¡Seleccione el elemento a modificar!";
 		}
-		   
 		   this.pnlModificar.mostrarMensaje(Mensaje);
 		   this.refrescarListaModificar();
 			
