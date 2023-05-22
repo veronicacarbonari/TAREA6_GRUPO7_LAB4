@@ -15,6 +15,8 @@ import javax.swing.ListSelectionModel;
 import entidad.Persona;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class PanelModificar extends JPanel{
 	
@@ -59,11 +61,27 @@ public class PanelModificar extends JPanel{
 			add(tablaPersonas);
 			
 			txtNombre = new JTextField();
+			txtNombre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					
+					if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<'á' || c>'ú') && (c<'Á' || c>'Ú')) e.consume();	
+				}
+			});
 			txtNombre.setColumns(10);
 			txtNombre.setBounds(29, 300, 112, 20);
 			add(txtNombre);
 			
 			txtApellido = new JTextField();
+			txtApellido.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					char c = e.getKeyChar();
+					
+					if ((c<'a' || c>'z') && (c<'A' || c>'Z') && (c<'á' || c>'ú') && (c<'Á' || c>'Ú')) e.consume();	
+				}
+			});
 			txtApellido.setColumns(10);
 			txtApellido.setBounds(150, 300, 112, 20);
 			add(txtApellido);
